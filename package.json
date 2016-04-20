@@ -1,0 +1,24 @@
+{
+  "name": "sassoo",
+  "version": "0.1.0",
+  "description": "Object-Oriented in Sass",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ncoden/sassoo.git"
+  },
+  "keywords": [
+    "sass",
+    "scss",
+    "object-oriented",
+    "oo"
+  ],
+  "author": "Nicolas Coden <nicolas@ncoden.fr>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ncoden/sassoo/issues"
+  },
+  "homepage": "https://github.com/ncoden/sassoo#readme"
+}

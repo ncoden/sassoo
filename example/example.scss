@@ -1,0 +1,26 @@
+@import '../scss/sassoo';
+
+@include object_declare(house) {
+  content: 'house';
+
+  @include object_declare(door) {
+    content: 'door';
+  }
+
+  @include object_declare(window) {
+    content: 'window';
+
+    @include object_declare(glass) {
+      content: 'glass';
+    }
+  }
+}
+
+@include object_declare(caravan) {
+  @include object_extend(house);
+  content: 'caravan';
+
+  @include object_declare(wheel) {
+    content: 'wheel';
+  }
+}

@@ -1,0 +1,13 @@
+@function list-flatten($list) {
+  $new-list: ();
+
+  @each $value in $list {
+    @if (type-of($value) == list) {
+      $new-list: join($new-list, list-flatten($value));
+    } @else {
+      $new-list: append($new-list, $value);
+    }
+  }
+
+  @return ($new-list);
+}

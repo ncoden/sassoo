@@ -1,0 +1,15 @@
+@function map-rget($map, $index-list) {
+  @if (type-of($index-list) == 'string') {
+    @return (map-get($map, $index-list));
+  }
+
+  @if (type-of($index-list) == 'list') {
+    $index-list: list-flatten($index-list);
+
+    @each $index in $index-list {
+      $map: map-get($map, $index);
+    }
+
+    @return ($map);
+  }
+}

@@ -1,0 +1,19 @@
+@function list-join($list, $separator: '') {
+  $str: '';
+
+  @each $value in $list {
+    @if (type-of($value) == list) {
+      $value: list-join($value, $separator);
+    }
+
+    @if (type-of($value) == string && $value != '') {
+      @if ($str == '') {
+        $str: $value;
+      } @else {
+        $str: $str + $separator + $value;
+      }
+    }
+  }
+
+  @return $str;
+}

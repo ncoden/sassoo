@@ -1,0 +1,23 @@
+@function map-rset($map, $index-list, $value) {
+  @if ($index-list == () or $index-list == null) {
+    @return $value;
+  }
+
+  @if (type-of($index-list) == 'string'
+    or (type-of($index-list) == 'list'
+      and length($index-list) == 1)) {
+    $index-list: #{$index-list};
+    $map: map-set($map, $index-list, $value);
+    @return $map;
+  }
+
+  @if (type-of($index-list) == 'list') {
+    $index-list: list-flatten($index-list);
+
+    $sub-index-list: list-remove($index-list, 1);
+    $sub-map: map-get($map, nth($index-list, 1));
+
+    $sub-map: map-rset($sub-map, $sub-index-list, $value);
+    @return map-set($map, nth($index-list, 1), $sub-map);
+  }
+}

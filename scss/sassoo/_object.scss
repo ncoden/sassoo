@@ -1,0 +1,47 @@
+$sassoo_separator: '-' !default;
+
+$_sassoo_base: () !global;
+$_sassoo_subobjects-list: () !global;
+
+@function _object_declare-subobject($path, $subobject) {
+  $map: map-rget($_sassoo_subobjects-list, $path) or ();
+
+  $map: map-set($map, $subobject, ());
+  $_sassoo_subobjects-list: map-rset($_sassoo_subobjects-list, $path, $map) !global;
+
+  @return null;
+}
+
+@function _object_get-subobjects($path) {
+  @return map-rget($_sassoo_subobjects-list, $path);
+}
+
+@mixin object_declare($name, $base: $_sassoo_base) {
+  $_sassoo_base: append($_sassoo_base, $name) !global;
+
+  @if $base != null {
+    $_: _object_declare-subobject($base, $name);
+    $name: list-join(($base, $name), $sassoo_separator);
+  }
+
+  @at-root {
+    %#{$name} { @content; }
+    .#{$name} { @extend %#{$name}; }
+  }
+
+  $_sassoo_base: $base !global;
+}
+
+@mixin object_extend($name, $base: ()) {
+  $base: append($base, $name);
+  $name: list-join($base, $sassoo_separator);
+  $subobjects: _object_get-subobjects($base);
+
+  @extend %#{$name};
+
+  @each $subobject, $sub-subobjects in $subobjects {
+    @include object_declare($subobject) {
+      @include object_extend($subobject, $base);
+    }
+  }
+}
